@@ -1,0 +1,8 @@
+/bin/
+/.settings/
+/.settings/*
+*.class
+.DS_Store
+~*
+*bak*
+thumbs.db
