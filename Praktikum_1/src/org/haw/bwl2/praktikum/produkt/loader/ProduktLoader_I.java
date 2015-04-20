@@ -9,4 +9,6 @@ public interface ProduktLoader_I {
 	List<Produkt_I> loadAlleProdukte() throws IOException;
 	
 	Produkt_I loadProdukt(String id) throws IOException;
+	
+	List<Produkt_I> loadProdukte(String name, double preisVon, double preisBis) throws IOException;
 }

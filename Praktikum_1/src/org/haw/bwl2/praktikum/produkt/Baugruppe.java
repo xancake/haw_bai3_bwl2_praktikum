@@ -10,14 +10,14 @@ public class Baugruppe extends Einzelteil implements Produkt_I {
 		myUnterteile = new ArrayList<Produkt_I>();
 	}
 	
-	@Override
-	public double getPreis() {
-		double preiseAllerUnterteile = 0;
-		for(Produkt_I unterteil : myUnterteile) {
-			preiseAllerUnterteile += unterteil.getPreis();
-		}
-		return super.getPreis() + preiseAllerUnterteile;
-	}
+//	@Override
+//	public double getPreis() {
+//		double preiseAllerUnterteile = 0;
+//		for(Produkt_I unterteil : myUnterteile) {
+//			preiseAllerUnterteile += unterteil.getPreis();
+//		}
+//		return super.getPreis() + preiseAllerUnterteile;
+//	}
 	
 	@Override
 	public void addUnterteil(Produkt_I produkt) {

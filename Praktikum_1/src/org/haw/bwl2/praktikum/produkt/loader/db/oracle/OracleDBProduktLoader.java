@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -17,11 +18,13 @@ import org.haw.bwl2.praktikum.produkt.Einzelteil;
 import org.haw.bwl2.praktikum.produkt.Produkt_I;
 import org.haw.bwl2.praktikum.produkt.loader.ProduktLoader_I;
 import org.haw.bwl2.praktikum.produkt.loader.db.DBConfiguration;
+import org.haw.bwl2.praktikum.util.StringUtils;
 
 public class OracleDBProduktLoader implements ProduktLoader_I {
 	private static final String SQL_ALLE_PRODUKTE = "SELECT p.id FROM Produkt p WHERE p.id NOT IN (SELECT DISTINCT unterteil FROM Baugruppe)";
 	private static final String SQL_EIN_PRODUKT = "SELECT * FROM Produkt p WHERE p.id=?";
 	private static final String SQL_GET_UNTERTEILE = "SELECT * FROM Baugruppe b WHERE b.oberteil=?";
+	private static final String SQL_PRODUKT_SUCHE = "SELECT id FROM Produkt WHERE id NOT IN (SELECT DISTINCT unterteil FROM Baugruppe) AND name LIKE ? AND preis BETWEEN ? AND ?";
 	
 	private Connection myConnection;
 	
@@ -75,6 +78,52 @@ public class OracleDBProduktLoader implements ProduktLoader_I {
 		} catch (SQLException e) {
 			throw new IOException(e);
 		}
+	}
+	
+	@Override
+	public List<Produkt_I> loadProdukte(String name, double preisVon, double preisBis) throws IOException {
+		int precision = 0;
+		int scale = 0;
+		try(
+				Statement stmt = myConnection.createStatement();
+				ResultSet rs = stmt.executeQuery("SELECT preis FROM Produkt WHERE 1=0");
+		) {
+			ResultSetMetaData metaData = rs.getMetaData();
+			precision = metaData.getPrecision(1);
+			scale = metaData.getScale(1);
+		} catch (SQLException e) {
+			throw new IOException(e);
+		}
+		
+		StringBuilder maxStr = new StringBuilder();
+		while(maxStr.length() < precision-scale) {
+			maxStr.append("9");
+		}
+		maxStr.append(".");
+		while(maxStr.length()-1 < precision) {
+			maxStr.append("9");
+		}
+		double min = 0;
+		double max = Double.parseDouble(maxStr.toString());
+		
+		name = !StringUtils.isNullOrEmpty(name) ? name : "%";
+		preisVon = preisVon>=min ? preisVon : min;
+		preisBis = preisBis<=max ? preisBis : max;
+		
+		List<Produkt_I> produkte = new ArrayList<Produkt_I>();
+		try(PreparedStatement stmt = myConnection.prepareStatement(SQL_PRODUKT_SUCHE)) {
+			stmt.setString(1, name);
+			stmt.setDouble(2, preisVon);
+			stmt.setDouble(3, preisBis);
+			try(ResultSet rs = stmt.executeQuery()) {
+				while(rs.next()) {
+					produkte.add(loadProdukt(rs.getString("id")));
+				}
+			}
+		} catch (SQLException e) {
+			throw new IOException(e);
+		}
+		return produkte;
 	}
 	
 	private void loadUnterteile(Produkt_I produkt) throws IOException {
