@@ -9,9 +9,6 @@ import org.haw.bwl2.praktikum.produkt.loader.db.DBConfigurationSingleton;
 import org.haw.bwl2.praktikum.produkt.loader.db.oracle.OracleDBProduktLoader;
 
 public class TestMain {
-//	private static final String URL = "jdbc:oracle:thin:@ora.informatik.haw-hamburg.de:1521:inf09";
-	private static final String URL = "jdbc:oracle:thin:@ora14.informatik.haw-hamburg.de:1521:inf14";
-	
 	public static void main(String[] args) throws Exception {
 		DBConfiguration config = DBConfigurationSingleton.getInstance().getConfiguration();
 		ProduktLoader_I loader = new OracleDBProduktLoader(config);
