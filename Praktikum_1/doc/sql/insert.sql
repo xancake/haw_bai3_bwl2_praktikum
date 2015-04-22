@@ -54,3 +54,24 @@ INSERT INTO Produkt VALUES(115, 2, 8.50, 'Kindlegem', 'http://img2.wikia.nocooki
 INSERT INTO Produkt VALUES(116, 2, 28.00, 'Locket of the Iron Solari', 'http://img3.wikia.nocookie.net/__cb20130319090622/leagueoflegends/images/5/56/Locket_of_the_Iron_Solari_item.png');
   INSERT INTO Baugruppe VALUES(116, 115, 1);
   INSERT INTO Baugruppe VALUES(116, 114, 1);
+
+INSERT INTO Statistic VALUES(100, 102, 200, 'Health');
+INSERT INTO Statistic VALUES(101, 102,  50, 'Attack Damage');
+INSERT INTO Statistic VALUES(102, 102,  10, '% Cooldown Reduction');
+INSERT INTO Statistic VALUES(103, 102,  10, 'Armor Penetration (UNIQUE)');
+INSERT INTO Statistic VALUES(104, 104, 400, 'Health');
+INSERT INTO Statistic VALUES(105, 106, 700, 'Health');
+INSERT INTO Statistic VALUES(106, 106,  30, 'Attack Damage');
+INSERT INTO Statistic VALUES(107, 109, 450, 'Health');
+INSERT INTO Statistic VALUES(108, 109,  55, 'Magic Resist');
+INSERT INTO Statistic VALUES(109, 109, 100, '% Base Health Regeneration');
+INSERT INTO Statistic VALUES(110, 110,  40, 'Attack Damage');
+INSERT INTO Statistic VALUES(111, 110,  35, '% Armor Penetration');
+INSERT INTO Statistic VALUES(112, 113,  75, 'Attack Damage');
+INSERT INTO Statistic VALUES(113, 113, 100, '% Base Health Regeneration');
+INSERT INTO Statistic VALUES(114, 113,  12, '% Life Steal');
+INSERT INTO Statistic VALUES(115, 116, 400, 'Health');
+INSERT INTO Statistic VALUES(116, 116,  20, 'Magic Resistance');
+INSERT INTO Statistic VALUES(117, 116,  10, '% Cooldown Reduction');
+
+

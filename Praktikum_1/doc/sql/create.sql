@@ -17,3 +17,11 @@ CREATE TABLE Baugruppe(
   FOREIGN KEY(oberteil) REFERENCES Produkt,
   FOREIGN KEY(unterteil) REFERENCES Produkt
 );
+
+CREATE TABLE Statistic(
+  id INTEGER PRIMARY KEY,
+  produkt INTEGER NOT NULL,
+  wert INTEGER NOT NULL,
+  bezeichnung VARCHAR(50) NOT NULL,
+  FOREIGN KEY(produkt) REFERENCES Produkt
+);
