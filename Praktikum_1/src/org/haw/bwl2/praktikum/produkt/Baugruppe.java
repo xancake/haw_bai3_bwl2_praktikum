@@ -1,6 +1,7 @@
 package org.haw.bwl2.praktikum.produkt;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Baugruppe extends Einzelteil implements Produkt_I {
@@ -18,6 +19,11 @@ public class Baugruppe extends Einzelteil implements Produkt_I {
 //		}
 //		return super.getPreis() + preiseAllerUnterteile;
 //	}
+	
+	@Override
+	public List<Produkt_I> getUnterteile() {
+		return Collections.unmodifiableList(myUnterteile);
+	}
 	
 	@Override
 	public void addUnterteil(Produkt_I produkt) {

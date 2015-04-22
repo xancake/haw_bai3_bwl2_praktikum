@@ -26,6 +26,7 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+		<link rel="stylesheet" type="text/css" href="global.css" />
 		<link rel="stylesheet" type="text/css" href="produkte.css" />
 		<title>Produkte</title>
 	</head>
@@ -46,11 +47,9 @@
 				<li>
 					<div class="produkt">
 						<img src="<%= produkt.getBildURL() %>" height=50 width=50>
-						<div>
-						<div class="titel"><%= produkt.getName() %></div>
+						<div class="titel"><a href="produkt-details.jsp?produkt=<%= produkt.getID() %>"><%= produkt.getName() %></a></div>
 						<p>Preis: <%= produkt.getPreis() %> &euro;</p>
 						<p>Bestand: <%= produkt.getBestand() %></p>
-						</div>
 					</div>
 				</li>
 				<% } %>

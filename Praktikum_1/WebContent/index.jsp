@@ -7,7 +7,7 @@
 	</head>
 	<body>
 		
-		<a href="./ControllerServlet">Produkt-Tablett</a>
+		<a href="./produkte.jsp">Produkt-&Uuml;bersicht</a>
 		
 	</body>
 </html>

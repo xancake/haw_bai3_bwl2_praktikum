@@ -131,7 +131,10 @@ public class OracleDBProduktLoader implements ProduktLoader_I {
 			stmt.setString(1, produkt.getID());
 			try(ResultSet rs = stmt.executeQuery()) {
 				while(rs.next()) {
-					produkt.addUnterteil(loadProdukt(rs.getString("unterteil")));
+					int anzahl = rs.getInt("anzahl");
+					for(int i=0; i<anzahl; i++) {
+						produkt.addUnterteil(loadProdukt(rs.getString("unterteil")));
+					}
 				}
 			}
 		} catch (SQLException e) {

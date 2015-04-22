@@ -1,6 +1,7 @@
 package org.haw.bwl2.praktikum.produkt;
 
 import java.net.URL;
+import java.util.List;
 
 public interface Produkt_I {
 	String getID();
@@ -18,6 +19,7 @@ public interface Produkt_I {
 	double getPreis();
 	void setPreis(double preis);
 	
+	List<Produkt_I> getUnterteile();
 	void addUnterteil(Produkt_I produkt);
 	void removeUnterteil(Produkt_I produkt);
 }

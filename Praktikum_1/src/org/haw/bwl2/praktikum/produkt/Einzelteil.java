@@ -1,6 +1,7 @@
 package org.haw.bwl2.praktikum.produkt;
 
 import java.net.URL;
+import java.util.List;
 
 public class Einzelteil implements Produkt_I {
 	private String myID;
@@ -58,6 +59,9 @@ public class Einzelteil implements Produkt_I {
 	public void setPreis(double preis) {
 		myPreis = preis;
 	}
+	
+	@Override
+	public List<Produkt_I> getUnterteile() { return null; }
 	
 	@Override
 	public void addUnterteil(Produkt_I produkt) {}

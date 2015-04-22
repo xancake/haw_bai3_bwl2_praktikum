@@ -1,12 +1,3 @@
-* {
-	font: 12px helvetica, sans-serif;
-}
-
-#content {
-	width: 75%;
-	margin: 10px auto 10px auto;
-}
-
 #suche {
 	text-align: right;
 }
@@ -14,19 +5,4 @@
 #produkte {
 	list-style: none;
 	padding: 0px;
-}
-
-.produkt {
-	border: 1px solid black;
-	background-color: red;
-	margin-bottom: 6px;
-}
-
-.produkt .titel {
-	font-size: 15px;
-	font-weight: bold;
-}
-
-.produkt img {
-	float: left;
 }
