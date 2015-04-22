@@ -1,8 +1,14 @@
 #suche {
+	color: white;
 	text-align: right;
 }
 
 #produkte {
 	list-style: none;
 	padding: 0px;
+}
+
+.produkt .titel a {
+	font-size: 15px;
+	font-weight: bold;
 }
