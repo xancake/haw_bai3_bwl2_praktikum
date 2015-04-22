@@ -16,6 +16,7 @@ import oracle.jdbc.OracleDriver;
 import org.haw.bwl2.praktikum.produkt.Baugruppe;
 import org.haw.bwl2.praktikum.produkt.Einzelteil;
 import org.haw.bwl2.praktikum.produkt.Produkt_I;
+import org.haw.bwl2.praktikum.produkt.Statistik;
 import org.haw.bwl2.praktikum.produkt.loader.ProduktLoader_I;
 import org.haw.bwl2.praktikum.produkt.loader.db.DBConfiguration;
 import org.haw.bwl2.praktikum.util.StringUtils;
@@ -25,6 +26,7 @@ public class OracleDBProduktLoader implements ProduktLoader_I {
 	private static final String SQL_EIN_PRODUKT = "SELECT * FROM Produkt p WHERE p.id=?";
 	private static final String SQL_GET_UNTERTEILE = "SELECT * FROM Baugruppe b WHERE b.oberteil=?";
 	private static final String SQL_PRODUKT_SUCHE = "SELECT id FROM Produkt WHERE id NOT IN (SELECT DISTINCT unterteil FROM Baugruppe) AND name LIKE ? AND preis BETWEEN ? AND ?";
+	private static final String SQL_PRODUKT_STATS = "SELECT * FROM Statistic WHERE produkt=?";
 	
 	private Connection myConnection;
 	
@@ -67,6 +69,7 @@ public class OracleDBProduktLoader implements ProduktLoader_I {
 					produkt.setBestand(rs.getInt("bestand"));
 					produkt.setPreis(rs.getDouble("preis"));
 					produkt.setBildURL(rs.getURL("bild"));
+					appendStatistiken(produkt);
 					if(!isEinzelteil) {
 						loadUnterteile(produkt);
 					}
@@ -149,6 +152,22 @@ public class OracleDBProduktLoader implements ProduktLoader_I {
 				return !rs.next();
 			}
 		} catch (SQLException e) {
+			throw new IOException(e);
+		}
+	}
+	
+	private void appendStatistiken(Produkt_I produkt) throws IOException {
+		try(PreparedStatement stmt = myConnection.prepareStatement(SQL_PRODUKT_STATS)) {
+			stmt.setString(1, produkt.getID());
+			try(ResultSet rs = stmt.executeQuery()) {
+				while(rs.next()) {
+					Statistik stat = new Statistik();
+					stat.setBezeichnung(rs.getString("bezeichnung"));
+					stat.setWert(rs.getInt("wert"));
+					produkt.addStatistik(stat);
+				}
+			}
+		} catch(SQLException e) {
 			throw new IOException(e);
 		}
 	}

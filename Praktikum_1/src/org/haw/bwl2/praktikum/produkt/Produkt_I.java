@@ -22,4 +22,8 @@ public interface Produkt_I {
 	List<Produkt_I> getUnterteile();
 	void addUnterteil(Produkt_I produkt);
 	void removeUnterteil(Produkt_I produkt);
+	
+	List<Statistik> getStatistiken();
+	void addStatistik(Statistik stat);
+	void removeStatistik(Statistik stat);
 }
