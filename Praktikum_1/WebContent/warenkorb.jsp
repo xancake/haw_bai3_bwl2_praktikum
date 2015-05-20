@@ -1,15 +1,12 @@
+<%@page import="org.haw.bwl2.praktikum.produkt.persistence.ProduktLoader"%>
+<%@page import="org.haw.bwl2.praktikum.produkt.persistence.ProduktLoader_I"%>
 <%@page import="java.util.Map.Entry"%>
 <%@page import="org.haw.bwl2.praktikum.warenkorb.Warenkorb"%>
-<%@page import="org.haw.bwl2.praktikum.produkt.loader.db.oracle.OracleDBProduktLoader"%>
-<%@page import="org.haw.bwl2.praktikum.produkt.loader.db.DBConfigurationSingleton"%>
 <%@page import="org.haw.bwl2.praktikum.produkt.Produkt_I"%>
 <%@page import="java.util.List"%>
-<%@page import="org.haw.bwl2.praktikum.produkt.loader.ProduktLoader_I"%>
-<%@page import="org.haw.bwl2.praktikum.produkt.loader.db.DBConfiguration"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%
-	DBConfiguration configDB = DBConfigurationSingleton.getInstance().getConfiguration();
-	ProduktLoader_I loader = new OracleDBProduktLoader(configDB);
+	ProduktLoader_I loader = new ProduktLoader();
 	
 	Warenkorb warenkorb = (Warenkorb)session.getAttribute("Warenkorb");
 	if(warenkorb == null) {
@@ -91,7 +88,7 @@
 				<% } %>
 			</ul>
 			
-			<div class="">
+			<div class="actions">
 				<form action="produkte.jsp">
 					<input type="submit" value="Weiter einkaufen" />
 				</form>

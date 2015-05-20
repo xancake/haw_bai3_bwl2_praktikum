@@ -1,4 +1,4 @@
-package org.haw.bwl2.praktikum.produkt.loader.db;
+package org.haw.bwl2.praktikum.produkt.persistence;
 
 import java.io.IOException;
 

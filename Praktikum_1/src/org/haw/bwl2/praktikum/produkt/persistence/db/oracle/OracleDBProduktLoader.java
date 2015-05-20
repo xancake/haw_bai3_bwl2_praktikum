@@ -1,4 +1,4 @@
-package org.haw.bwl2.praktikum.produkt.loader.db.oracle;
+package org.haw.bwl2.praktikum.produkt.persistence.db.oracle;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -17,8 +17,8 @@ import org.haw.bwl2.praktikum.produkt.Baugruppe;
 import org.haw.bwl2.praktikum.produkt.Einzelteil;
 import org.haw.bwl2.praktikum.produkt.Produkt_I;
 import org.haw.bwl2.praktikum.produkt.Statistik;
-import org.haw.bwl2.praktikum.produkt.loader.ProduktLoader_I;
-import org.haw.bwl2.praktikum.produkt.loader.db.DBConfiguration;
+import org.haw.bwl2.praktikum.produkt.persistence.ProduktLoader_I;
+import org.haw.bwl2.praktikum.produkt.persistence.db.DBConfiguration;
 import org.haw.bwl2.praktikum.util.StringUtils;
 
 public class OracleDBProduktLoader implements ProduktLoader_I {

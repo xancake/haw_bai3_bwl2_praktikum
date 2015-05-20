@@ -1,14 +1,11 @@
+<%@page import="org.haw.bwl2.praktikum.produkt.persistence.ProduktLoader"%>
+<%@page import="org.haw.bwl2.praktikum.produkt.persistence.ProduktLoader_I"%>
 <%@page import="org.haw.bwl2.praktikum.util.StringUtils"%>
-<%@page import="org.haw.bwl2.praktikum.produkt.loader.db.oracle.OracleDBProduktLoader"%>
-<%@page import="org.haw.bwl2.praktikum.produkt.loader.ProduktLoader_I"%>
-<%@page import="org.haw.bwl2.praktikum.produkt.loader.db.DBConfiguration"%>
-<%@page import="org.haw.bwl2.praktikum.produkt.loader.db.DBConfigurationSingleton"%>
 <%@page import="org.haw.bwl2.praktikum.produkt.Produkt_I"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%
-	DBConfiguration configDB = DBConfigurationSingleton.getInstance().getConfiguration();
-	ProduktLoader_I loader = new OracleDBProduktLoader(configDB);
+	ProduktLoader_I loader = new ProduktLoader();
 	List<Produkt_I> produkte;
 	
 	String pName = request.getParameter("name");

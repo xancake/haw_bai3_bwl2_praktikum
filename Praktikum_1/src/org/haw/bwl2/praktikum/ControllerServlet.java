@@ -12,10 +12,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.haw.bwl2.praktikum.produkt.Produkt_I;
-import org.haw.bwl2.praktikum.produkt.loader.ProduktLoader_I;
-import org.haw.bwl2.praktikum.produkt.loader.db.DBConfiguration;
-import org.haw.bwl2.praktikum.produkt.loader.db.DBConfigurationSingleton;
-import org.haw.bwl2.praktikum.produkt.loader.db.oracle.OracleDBProduktLoader;
+import org.haw.bwl2.praktikum.produkt.persistence.ProduktLoader_I;
+import org.haw.bwl2.praktikum.produkt.persistence.db.DBConfiguration;
+import org.haw.bwl2.praktikum.produkt.persistence.db.DBConfigurationSingleton;
+import org.haw.bwl2.praktikum.produkt.persistence.db.oracle.OracleDBProduktLoader;
 
 @WebServlet("/ControllerServlet")
 public class ControllerServlet extends HttpServlet {

@@ -1,17 +1,14 @@
-<%@page import="org.haw.bwl2.praktikum.produkt.loader.db.oracle.OracleDBProduktStorer"%>
-<%@page import="org.haw.bwl2.praktikum.produkt.loader.db.ProduktStorer_I"%>
+<%@page import="org.haw.bwl2.praktikum.produkt.persistence.ProduktStorer"%>
+<%@page import="org.haw.bwl2.praktikum.produkt.persistence.ProduktStorer_I"%>
+<%@page import="org.haw.bwl2.praktikum.produkt.persistence.ProduktLoader"%>
+<%@page import="org.haw.bwl2.praktikum.produkt.persistence.ProduktLoader_I"%>
 <%@page import="org.haw.bwl2.praktikum.produkt.Produkt_I"%>
 <%@page import="java.util.Map.Entry"%>
-<%@page import="org.haw.bwl2.praktikum.produkt.loader.db.oracle.OracleDBProduktLoader"%>
-<%@page import="org.haw.bwl2.praktikum.produkt.loader.db.DBConfigurationSingleton"%>
 <%@page import="org.haw.bwl2.praktikum.warenkorb.Warenkorb"%>
-<%@page import="org.haw.bwl2.praktikum.produkt.loader.ProduktLoader_I"%>
-<%@page import="org.haw.bwl2.praktikum.produkt.loader.db.DBConfiguration"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%
-	DBConfiguration configDB = DBConfigurationSingleton.getInstance().getConfiguration();
-	ProduktLoader_I loader = new OracleDBProduktLoader(configDB);
-	ProduktStorer_I storer = new OracleDBProduktStorer(configDB);
+	ProduktLoader_I loader = new ProduktLoader();
+	ProduktStorer_I storer = new ProduktStorer();
 	
 	Warenkorb warenkorb = (Warenkorb)session.getAttribute("Warenkorb");
 	if(warenkorb == null) {

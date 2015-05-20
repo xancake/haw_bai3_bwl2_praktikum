@@ -1,4 +1,4 @@
-package org.haw.bwl2.praktikum.produkt.loader.db.oracle;
+package org.haw.bwl2.praktikum.produkt.persistence.db.oracle;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -9,8 +9,8 @@ import java.sql.SQLException;
 import oracle.jdbc.OracleDriver;
 
 import org.haw.bwl2.praktikum.produkt.Produkt_I;
-import org.haw.bwl2.praktikum.produkt.loader.db.DBConfiguration;
-import org.haw.bwl2.praktikum.produkt.loader.db.ProduktStorer_I;
+import org.haw.bwl2.praktikum.produkt.persistence.ProduktStorer_I;
+import org.haw.bwl2.praktikum.produkt.persistence.db.DBConfiguration;
 
 public class OracleDBProduktStorer implements ProduktStorer_I {
 	private static final String SQL_UPDATE_PRODUKT = "UPDATE Produkt SET bestand=?, preis=?, name=?, bild=? WHERE id=?";

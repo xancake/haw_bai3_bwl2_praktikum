@@ -1,8 +1,7 @@
+<%@page import="org.haw.bwl2.praktikum.produkt.persistence.ProduktLoader"%>
+<%@page import="org.haw.bwl2.praktikum.produkt.persistence.ProduktLoader_I"%>
 <%@page import="java.util.List"%>
 <%@page import="org.haw.bwl2.praktikum.util.StringUtils"%>
-<%@page import="org.haw.bwl2.praktikum.produkt.loader.db.oracle.OracleDBProduktLoader"%>
-<%@page import="org.haw.bwl2.praktikum.produkt.loader.db.DBConfigurationSingleton"%>
-<%@page import="org.haw.bwl2.praktikum.produkt.loader.db.DBConfiguration"%>
 <%@page import="org.haw.bwl2.praktikum.produkt.Produkt_I"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%!
@@ -41,8 +40,8 @@
 			<%
 				String produktParam = request.getParameter("produkt");
 				if(!StringUtils.isNullOrEmpty(produktParam)) {
-					DBConfiguration configDB = DBConfigurationSingleton.getInstance().getConfiguration();
-					Produkt_I produkt = new OracleDBProduktLoader(configDB).loadProdukt(produktParam);
+					ProduktLoader_I loader = new ProduktLoader();
+					Produkt_I produkt = loader.loadProdukt(produktParam);
 			%>
 			<div class="produkt">
 				<img src="<%= produkt.getBildURL() %>" height=50 width=50>
