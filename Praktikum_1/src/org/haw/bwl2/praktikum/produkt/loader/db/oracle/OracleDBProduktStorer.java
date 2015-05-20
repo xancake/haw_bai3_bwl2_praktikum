@@ -13,7 +13,7 @@ import org.haw.bwl2.praktikum.produkt.loader.db.DBConfiguration;
 import org.haw.bwl2.praktikum.produkt.loader.db.ProduktStorer_I;
 
 public class OracleDBProduktStorer implements ProduktStorer_I {
-	private static final String SQL_UPDATE_PRODUKT = "UPDATE Produkt SET bestand=? preis=? name=? bild=? WHERE id=?";
+	private static final String SQL_UPDATE_PRODUKT = "UPDATE Produkt SET bestand=?, preis=?, name=?, bild=? WHERE id=?";
 	
 	private Connection myConnection;
 	
