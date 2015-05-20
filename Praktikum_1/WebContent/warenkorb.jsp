@@ -20,33 +20,35 @@
 	String fehlermeldung = null;
 	
 	String pMode = request.getParameter("mode");
-	switch(pMode) {
-		case "Kaufen": {
-			String pProdukt = request.getParameter("produktID");
-			Produkt_I produkt = loader.loadProdukt(pProdukt);
-			if(warenkorb.getMengeVonProdukt(produkt) == 0) {
-				warenkorb.trageProdukteEin(produkt, 1);
-			} else {
-				fehlermeldung = produkt.getName() + " ist schon im Warenkorb enthalten";
+	if(pMode != null) {
+		switch(pMode) {
+			case "Kaufen": {
+				String pProdukt = request.getParameter("produktID");
+				Produkt_I produkt = loader.loadProdukt(pProdukt);
+				if(warenkorb.getMengeVonProdukt(produkt) == 0) {
+					warenkorb.trageProdukteEin(produkt, 1);
+				} else {
+					fehlermeldung = produkt.getName() + " ist schon im Warenkorb enthalten";
+				}
+				break;
 			}
-			break;
-		}
-		case "Menge Aktualisieren": {
-			String pProdukt = request.getParameter("produktID");
-			String pMenge   = request.getParameter("menge");
-			Produkt_I produkt = loader.loadProdukt(pProdukt);
-			int menge = 0;
-			try {
-				menge = Integer.parseInt(pMenge);
-			} catch(NumberFormatException e) {
-				fehlermeldung = "Sie müssen eine Zahl als Menge eingeben!";
+			case "Menge Aktualisieren": {
+				String pProdukt = request.getParameter("produktID");
+				String pMenge   = request.getParameter("menge");
+				Produkt_I produkt = loader.loadProdukt(pProdukt);
+				int menge = 0;
+				try {
+					menge = Integer.parseInt(pMenge);
+				} catch(NumberFormatException e) {
+					fehlermeldung = "Sie müssen eine Zahl als Menge eingeben!";
+				}
+				if(menge <= produkt.getBestand()) {
+					warenkorb.trageProdukteEin(produkt, menge);
+				} else {
+					fehlermeldung = produkt.getName() + " ist in der von Ihnen gewünschten Menge nicht vorhanden.";
+				}
+				break;
 			}
-			if(menge <= produkt.getBestand()) {
-				warenkorb.trageProdukteEin(produkt, menge);
-			} else {
-				fehlermeldung = produkt.getName() + " ist in der von Ihnen gewünschten Menge nicht vorhanden.";
-			}
-			break;
 		}
 	}
 %>
