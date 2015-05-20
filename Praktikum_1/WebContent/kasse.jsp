@@ -1,19 +1,17 @@
+<%@page import="org.haw.bwl2.praktikum.Parameter"%>
 <%@page import="org.haw.bwl2.praktikum.produkt.persistence.ProduktStorer"%>
 <%@page import="org.haw.bwl2.praktikum.produkt.persistence.ProduktStorer_I"%>
-<%@page import="org.haw.bwl2.praktikum.produkt.persistence.ProduktLoader"%>
-<%@page import="org.haw.bwl2.praktikum.produkt.persistence.ProduktLoader_I"%>
 <%@page import="org.haw.bwl2.praktikum.produkt.Produkt_I"%>
 <%@page import="java.util.Map.Entry"%>
 <%@page import="org.haw.bwl2.praktikum.warenkorb.Warenkorb"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%
-	ProduktLoader_I loader = new ProduktLoader();
 	ProduktStorer_I storer = new ProduktStorer();
 	
-	Warenkorb warenkorb = (Warenkorb)session.getAttribute("Warenkorb");
+	Warenkorb warenkorb = (Warenkorb)session.getAttribute(Parameter.SESSION_WARENKORB);
 	if(warenkorb == null) {
 		warenkorb = new Warenkorb();
-		session.setAttribute("Warenkorb", warenkorb);
+		session.setAttribute(Parameter.SESSION_WARENKORB, warenkorb);
 	}
 	
 	for(Entry<Produkt_I, Integer> entry : warenkorb) {
@@ -22,7 +20,7 @@
 		storer.storeProdukt(produkt);
 	}
 	
-	session.setAttribute("Warenkorb", new Warenkorb());
+	session.setAttribute(Parameter.SESSION_WARENKORB, new Warenkorb());
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -36,7 +34,7 @@
 		<div id="content">
 			<p>Viel Spa&szlig; mit ihren gekaufen Produkten!</p>
 			<br/>
-			<a href="produkte.jsp">Zurück zur Produktübersicht</a>
+			<a href="produkte.jsp">Zur&uuml;ck zur Produkt&uuml;bersicht</a>
 		</div>
 		
 	</body>

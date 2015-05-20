@@ -1,3 +1,4 @@
+<%@page import="org.haw.bwl2.praktikum.Parameter"%>
 <%@page import="org.haw.bwl2.praktikum.produkt.persistence.ProduktLoader"%>
 <%@page import="org.haw.bwl2.praktikum.produkt.persistence.ProduktLoader_I"%>
 <%@page import="java.util.Map.Entry"%>
@@ -8,19 +9,19 @@
 <%
 	ProduktLoader_I loader = new ProduktLoader();
 	
-	Warenkorb warenkorb = (Warenkorb)session.getAttribute("Warenkorb");
+	Warenkorb warenkorb = (Warenkorb)session.getAttribute(Parameter.SESSION_WARENKORB);
 	if(warenkorb == null) {
 		warenkorb = new Warenkorb();
-		session.setAttribute("Warenkorb", warenkorb);
+		session.setAttribute(Parameter.SESSION_WARENKORB, warenkorb);
 	}
 	
 	String fehlermeldung = null;
 	
-	String pMode = request.getParameter("mode");
+	String pMode = request.getParameter(Parameter.WARENKORB_MODE);
 	if(pMode != null) {
 		switch(pMode) {
-			case "Kaufen": {
-				String pProdukt = request.getParameter("produktID");
+			case Parameter.WARENKORB_MODE_KAUFEN: {
+				String pProdukt = request.getParameter(Parameter.PRODUKT_ID);
 				Produkt_I produkt = loader.loadProdukt(pProdukt);
 				if(warenkorb.getMengeVonProdukt(produkt) == 0) {
 					warenkorb.trageProdukteEin(produkt, 1);
@@ -29,8 +30,8 @@
 				}
 				break;
 			}
-			case "Menge Aktualisieren": {
-				String pProdukt = request.getParameter("produktID");
+			case Parameter.WARENKORB_MODE_AKTUALISIEREN: {
+				String pProdukt = request.getParameter(Parameter.PRODUKT_ID);
 				String pMenge   = request.getParameter("menge");
 				Produkt_I produkt = loader.loadProdukt(pProdukt);
 				int menge = 0;
@@ -73,16 +74,16 @@
 				%>
 				<li>
 				<form action="warenkorb.jsp" method="get">
-					<input type="hidden" name="produktID" value="<%= produkt.getID() %>" />
 					<div class="produkt">
+						<input type="hidden" name="<%= Parameter.PRODUKT_ID %>" value="<%= produkt.getID() %>" />
 						<img src="<%= produkt.getBildURL() %>" height=50 width=50>
-						<div class="titel"><a href="produkt-details.jsp?produkt=<%= produkt.getID() %>"><%= produkt.getName() %></a></div>
+						<div class="titel"><a href="produkt-details.jsp?<%= Parameter.PRODUKT_ID %>=<%= produkt.getID() %>"><%= produkt.getName() %></a></div>
 						<p>Einzelpreis: <%= produkt.getPreis() %> &euro;</p>
 						<p>Gesamtpreis: <%= produkt.getPreis()*menge %> &euro;</p>
 						<p>Bestand: <%= produkt.getBestand() %></p>
 						<p>Menge: <input type="text" name="menge" value="<%= menge %>" /></p>
+						<input type="submit" name="<%= Parameter.WARENKORB_MODE %>" value="<%= Parameter.WARENKORB_MODE_AKTUALISIEREN %>" />
 					</div>
-					<input type="submit" name="mode" value="Menge Aktualisieren" />
 				</form>
 				</li>
 				<% } %>

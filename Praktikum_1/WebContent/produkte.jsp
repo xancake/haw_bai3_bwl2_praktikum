@@ -1,3 +1,5 @@
+<%@page import="org.apache.jasper.tagplugins.jstl.core.Param"%>
+<%@page import="org.haw.bwl2.praktikum.Parameter"%>
 <%@page import="org.haw.bwl2.praktikum.produkt.persistence.ProduktLoader"%>
 <%@page import="org.haw.bwl2.praktikum.produkt.persistence.ProduktLoader_I"%>
 <%@page import="org.haw.bwl2.praktikum.util.StringUtils"%>
@@ -8,9 +10,9 @@
 	ProduktLoader_I loader = new ProduktLoader();
 	List<Produkt_I> produkte;
 	
-	String pName = request.getParameter("name");
-	String pPreisVon = request.getParameter("preis-von");
-	String pPreisBis = request.getParameter("preis-bis");
+	String pName = request.getParameter(Parameter.PRODUKT_SUCHE_NAME);
+	String pPreisVon = request.getParameter(Parameter.PRODUKT_SUCHE_PREIS_VON);
+	String pPreisBis = request.getParameter(Parameter.PRODUKT_SUCHE_PREIS_BIS);
 	if(pName != null || pPreisVon != null || pPreisBis != null) {
 		double preisVon = !StringUtils.isNullOrEmpty(pPreisVon) ? Double.parseDouble(pPreisVon) : 0;
 		double preisBis = !StringUtils.isNullOrEmpty(pPreisBis) ? Double.parseDouble(pPreisBis) : Double.MAX_VALUE;
@@ -32,26 +34,25 @@
 		<div id="content">
 			<div id="suche">
 				<form action="produkte.jsp" method="get">
-					Name: <input type="text" name="name" value="<%= pName!=null ? pName : "" %>" />
-					Preis von: <input type="text" name="preis-von" value="<%= pPreisVon!=null ? pPreisVon : "" %>" />
-					Preis bis: <input type="text" name="preis-bis" value="<%= pPreisBis!=null ? pPreisBis : "" %>" />
-					<input type="submit" value="Suchen" />
+					Name: <input type="text" name="<%= Parameter.PRODUKT_SUCHE_NAME %>" value="<%= pName!=null ? pName : "" %>" />
+					Preis von: <input type="text" name="<%= Parameter.PRODUKT_SUCHE_PREIS_VON %>" value="<%= pPreisVon!=null ? pPreisVon : "" %>" />
+					Preis bis: <input type="text" name="<%= Parameter.PRODUKT_SUCHE_PREIS_BIS %>" value="<%= pPreisBis!=null ? pPreisBis : "" %>" />
+					<input type="submit" value="<%= Parameter.PRODUKT_MODE_SUCHE %>" />
 				</form>
 			</div>
-			
 			
 			<ul id="produkte">
 				<% for(Produkt_I produkt : produkte) { %>
 				<li>
 				<form action="warenkorb.jsp" method="get">
-					<input type="hidden" name="produktID" value="<%= produkt.getID() %>" />
 					<div class="produkt">
+						<input type="hidden" name="<%= Parameter.PRODUKT_ID %>" value="<%= produkt.getID() %>" />
 						<img src="<%= produkt.getBildURL() %>" height=50 width=50>
-						<div class="titel"><a href="produkt-details.jsp?produkt=<%= produkt.getID() %>"><%= produkt.getName() %></a></div>
+						<div class="titel"><a href="produkt-details.jsp?<%= Parameter.PRODUKT_ID %>=<%= produkt.getID() %>"><%= produkt.getName() %></a></div>
 						<p>Preis: <%= produkt.getPreis() %> &euro;</p>
 						<p>Bestand: <%= produkt.getBestand() %></p>
+						<input type="submit" name="<%= Parameter.WARENKORB_MODE %>" value="<%= Parameter.WARENKORB_MODE_KAUFEN %>" />
 					</div>
-					<input type="submit" name="mode" value="Kaufen" />
 				</form>
 				</li>
 				<% } %>

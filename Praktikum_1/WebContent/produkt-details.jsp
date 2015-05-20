@@ -1,3 +1,4 @@
+<%@page import="org.haw.bwl2.praktikum.Parameter"%>
 <%@page import="org.haw.bwl2.praktikum.produkt.persistence.ProduktLoader"%>
 <%@page import="org.haw.bwl2.praktikum.produkt.persistence.ProduktLoader_I"%>
 <%@page import="java.util.List"%>
@@ -38,7 +39,7 @@
 	<body>
 		<div id="content">
 			<%
-				String produktParam = request.getParameter("produkt");
+				String produktParam = request.getParameter(Parameter.PRODUKT_ID);
 				if(!StringUtils.isNullOrEmpty(produktParam)) {
 					ProduktLoader_I loader = new ProduktLoader();
 					Produkt_I produkt = loader.loadProdukt(produktParam);
