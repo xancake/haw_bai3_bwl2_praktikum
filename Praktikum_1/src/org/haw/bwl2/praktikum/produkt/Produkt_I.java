@@ -4,8 +4,8 @@ import java.net.URL;
 import java.util.List;
 
 public interface Produkt_I {
-	String getID();
-	void setID(String id);
+	int getID();
+	void setID(int id);
 	
 	String getName();
 	void setName(String name);

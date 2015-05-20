@@ -5,7 +5,6 @@
 <%@page import="org.haw.bwl2.praktikum.produkt.loader.db.DBConfiguration"%>
 <%@page import="org.haw.bwl2.praktikum.produkt.Produkt_I"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-
 <%!
 	private String printUnterteile(List<Produkt_I> unterteile) {
 		StringBuilder text = new StringBuilder();

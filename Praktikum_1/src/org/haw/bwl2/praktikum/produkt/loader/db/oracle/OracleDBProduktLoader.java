@@ -64,7 +64,7 @@ public class OracleDBProduktLoader implements ProduktLoader_I {
 					String ident = rs.getString("id");
 					boolean isEinzelteil = isEinzelteil(ident);
 					Produkt_I produkt = isEinzelteil ? new Einzelteil() : new Baugruppe();
-					produkt.setID(rs.getString("id"));
+					produkt.setID(rs.getInt("id"));
 					produkt.setName(rs.getString("name"));
 					produkt.setBestand(rs.getInt("bestand"));
 					produkt.setPreis(rs.getDouble("preis"));
@@ -131,7 +131,7 @@ public class OracleDBProduktLoader implements ProduktLoader_I {
 	
 	private void loadUnterteile(Produkt_I produkt) throws IOException {
 		try(PreparedStatement stmt = myConnection.prepareStatement(SQL_GET_UNTERTEILE)) {
-			stmt.setString(1, produkt.getID());
+			stmt.setInt(1, produkt.getID());
 			try(ResultSet rs = stmt.executeQuery()) {
 				while(rs.next()) {
 					int anzahl = rs.getInt("anzahl");
@@ -158,7 +158,7 @@ public class OracleDBProduktLoader implements ProduktLoader_I {
 	
 	private void appendStatistiken(Produkt_I produkt) throws IOException {
 		try(PreparedStatement stmt = myConnection.prepareStatement(SQL_PRODUKT_STATS)) {
-			stmt.setString(1, produkt.getID());
+			stmt.setInt(1, produkt.getID());
 			try(ResultSet rs = stmt.executeQuery()) {
 				while(rs.next()) {
 					Statistik stat = new Statistik();

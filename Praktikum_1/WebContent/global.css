@@ -37,3 +37,14 @@ a:hover {
 .produkt img {
 	float: left;
 }
+
+.error {
+	border: 1px solid #ff4444;
+	background-color: #ffcccc;
+	color: black;
+	padding: 4px;
+}
+
+.error_msg {
+	line-height: 0px;
+}

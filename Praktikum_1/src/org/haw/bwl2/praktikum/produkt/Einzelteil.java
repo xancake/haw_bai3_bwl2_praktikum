@@ -6,7 +6,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class Einzelteil implements Produkt_I {
-	private String myID;
+	private int myID;
 	private String myName;
 	private URL myBildURL;
 	private int myBestand;
@@ -18,12 +18,12 @@ public class Einzelteil implements Produkt_I {
 	}
 	
 	@Override
-	public String getID() {
+	public int getID() {
 		return myID;
 	}
 	
 	@Override
-	public void setID(String id) {
+	public void setID(int id) {
 		myID = id;
 	}
 	
@@ -96,7 +96,7 @@ public class Einzelteil implements Produkt_I {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + myBestand;
-		result = prime * result + ((myID == null) ? 0 : myID.hashCode());
+		result = prime * result + myID;
 		result = prime * result + ((myName == null) ? 0 : myName.hashCode());
 		long temp;
 		temp = Double.doubleToLongBits(myPreis);
@@ -115,10 +115,7 @@ public class Einzelteil implements Produkt_I {
 		Einzelteil other = (Einzelteil) obj;
 		if (myBestand != other.myBestand)
 			return false;
-		if (myID == null) {
-			if (other.myID != null)
-				return false;
-		} else if (!myID.equals(other.myID))
+		if (myID != other.myID)
 			return false;
 		if (myName == null) {
 			if (other.myName != null)

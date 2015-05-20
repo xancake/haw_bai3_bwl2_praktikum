@@ -42,15 +42,20 @@
 				</form>
 			</div>
 			
+			
 			<ul id="produkte">
 				<% for(Produkt_I produkt : produkte) { %>
 				<li>
+				<form action="warenkorb.jsp" method="get">
+					<input type="hidden" name="produktID" value="<%= produkt.getID() %>" />
 					<div class="produkt">
 						<img src="<%= produkt.getBildURL() %>" height=50 width=50>
 						<div class="titel"><a href="produkt-details.jsp?produkt=<%= produkt.getID() %>"><%= produkt.getName() %></a></div>
 						<p>Preis: <%= produkt.getPreis() %> &euro;</p>
 						<p>Bestand: <%= produkt.getBestand() %></p>
 					</div>
+					<input type="submit" name="mode" value="Kaufen" />
+				</form>
 				</li>
 				<% } %>
 			</ul>
