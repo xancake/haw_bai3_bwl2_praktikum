@@ -25,3 +25,23 @@ CREATE TABLE Statistic(
   bezeichnung VARCHAR(50) NOT NULL,
   FOREIGN KEY(produkt) REFERENCES Produkt
 );
+
+CREATE TABLE Bestellung(
+  id INTEGER PRIMARY KEY,
+  datum DATE NOT NULL
+);
+
+CREATE TABLE Bestellposition(
+  bestellung INTEGER NOT NULL,
+  produkt INTEGER NOT NULL,
+  menge INTEGER NOT NULL CHECK(menge > 0),
+  PRIMARY KEY (bestellung, produkt),
+  FOREIGN KEY (bestellung)
+    REFERENCES Bestellung,
+  FOREIGN KEY (produkt)
+    REFERENCES Produkt
+);
+
+CREATE SEQUENCE Bestellung_seq
+  START WITH 1000
+  INCREMENT BY 1;
