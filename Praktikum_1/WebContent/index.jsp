@@ -6,8 +6,9 @@
 		<title>Homepage</title>
 	</head>
 	<body>
-		
-		<a href="./produkte.jsp">Produkt-&Uuml;bersicht</a>
-		
+		<ul>
+			<li><a href="./produkte.jsp">Produkt-&Uuml;bersicht</a></li>
+			<li><a href="./admin.jsp">Admin-Ansicht</a></li>
+		</ul>
 	</body>
 </html>
