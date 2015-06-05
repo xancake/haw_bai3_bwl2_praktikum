@@ -2,6 +2,7 @@
 **/build/
 **/.settings/
 *.class
+db.properties
 .DS_Store
 ~*
 *bak*
