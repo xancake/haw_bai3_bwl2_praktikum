@@ -39,4 +39,9 @@ public class OracleDBProduktStorer implements ProduktStorer_I {
 			throw new IOException(e);
 		}
 	}
+	
+	@Override
+	public void close() throws Exception {
+		myConnection.close();
+	}
 }

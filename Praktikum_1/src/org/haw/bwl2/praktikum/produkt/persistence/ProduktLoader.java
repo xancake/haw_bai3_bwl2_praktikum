@@ -35,4 +35,9 @@ public class ProduktLoader implements ProduktLoader_I {
 	public List<Produkt_I> loadProdukte(String name, double preisVon, double preisBis) throws IOException {
 		return myLoader.loadProdukte(name, preisVon, preisBis);
 	}
+	
+	@Override
+	public void close() throws Exception {
+		myLoader.close();
+	}
 }

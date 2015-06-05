@@ -24,4 +24,9 @@ public class ProduktStorer implements ProduktStorer_I {
 	public void storeProdukt(Produkt_I produkt) throws IOException {
 		myStorer.storeProdukt(produkt);
 	}
+	
+	@Override
+	public void close() throws Exception {
+		myStorer.close();
+	}
 }
