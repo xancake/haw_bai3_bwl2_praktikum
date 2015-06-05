@@ -1,3 +1,6 @@
+<%@page import="org.haw.bwl2.praktikum.bestellung.persistence.BestellungStorer"%>
+<%@page import="org.haw.bwl2.praktikum.bestellung.persistence.BestellungStorer_I"%>
+<%@page import="org.haw.bwl2.praktikum.bestellung.Bestellung"%>
 <%@page import="org.haw.bwl2.praktikum.Parameter"%>
 <%@page import="org.haw.bwl2.praktikum.produkt.persistence.ProduktStorer"%>
 <%@page import="org.haw.bwl2.praktikum.produkt.persistence.ProduktStorer_I"%>
@@ -6,7 +9,7 @@
 <%@page import="org.haw.bwl2.praktikum.warenkorb.Warenkorb"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%
-	ProduktStorer_I storer = new ProduktStorer();
+	ProduktStorer_I produktStorer = new ProduktStorer();
 	
 	Warenkorb warenkorb = (Warenkorb)session.getAttribute(Parameter.SESSION_WARENKORB);
 	if(warenkorb == null) {
@@ -14,11 +17,18 @@
 		session.setAttribute(Parameter.SESSION_WARENKORB, warenkorb);
 	}
 	
+	Bestellung bestellung = new Bestellung();
 	for(Entry<Produkt_I, Integer> entry : warenkorb) {
 		Produkt_I produkt = entry.getKey();
+		bestellung.addBestelltesProdukt(produkt, entry.getValue());
 		produkt.setBestand(produkt.getBestand()-entry.getValue());
-		storer.storeProdukt(produkt);
+		produktStorer.storeProdukt(produkt);
 	}
+	produktStorer.close();
+	
+	BestellungStorer_I bestellungStorer = new BestellungStorer();
+	bestellungStorer.createBestellung(bestellung);
+	bestellungStorer.close();
 	
 	session.setAttribute(Parameter.SESSION_WARENKORB, new Warenkorb());
 %>
