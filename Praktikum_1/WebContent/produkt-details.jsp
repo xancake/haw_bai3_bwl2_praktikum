@@ -41,8 +41,8 @@
 			<%
 				String produktParam = request.getParameter(Parameter.PRODUKT_ID);
 				if(!StringUtils.isNullOrEmpty(produktParam)) {
-					ProduktLoader_I loader = new ProduktLoader();
-					Produkt_I produkt = loader.loadProdukt(produktParam);
+					try(ProduktLoader_I loader = new ProduktLoader()) {
+						Produkt_I produkt = loader.loadProdukt(produktParam);
 			%>
 			<div class="produkt">
 				<img src="<%= produkt.getBildURL() %>" height=50 width=50>
@@ -55,9 +55,12 @@
 				<%= printUnterteile(produkt.getUnterteile()) %>
 			</ul>
 			
-			<% } else { %>
+			<% 
+					}
+				} else {
+			%>
 			<p>Es wurde kein Produkt ausgew&auml;hlt. Zur&uuml;ck zur <a href="./produkte.jsp">Produkt-&Uuml;bersicht</a></p>
-			<% } %>
+			<%  } %>
 		</div>
 	</body>
 </html>

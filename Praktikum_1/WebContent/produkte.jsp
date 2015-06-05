@@ -8,7 +8,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%
 	ProduktLoader_I loader = new ProduktLoader();
-	List<Produkt_I> produkte;
+	List<Produkt_I> produkte = null;
 	
 	String pName = request.getParameter(Parameter.PRODUKT_SUCHE_NAME);
 	String pPreisVon = request.getParameter(Parameter.PRODUKT_SUCHE_PREIS_VON);
@@ -61,3 +61,6 @@
 		
 	</body>
 </html>
+<%
+	loader.close();
+%>
