@@ -56,7 +56,7 @@ public class OracleDBBestellungLoader implements BestellungLoader_I {
 	@Override
 	public Bestellung loadBestellung(int id) throws IOException {
 		try(PreparedStatement stmt = myConnection.prepareStatement(SQL_EINE_BESTELLUNG)) {
-			stmt.setInt(0, id);
+			stmt.setInt(1, id);
 			try(ResultSet rs = stmt.executeQuery()) {
 				if(rs.next()) {
 					Bestellung bestellung = new Bestellung();
@@ -75,7 +75,7 @@ public class OracleDBBestellungLoader implements BestellungLoader_I {
 	
 	private void appendBestellpositionen(Bestellung bestellung) throws IOException {
 		try(PreparedStatement stmt = myConnection.prepareStatement(SQL_BESTELLPOSITIONEN)) {
-			stmt.setInt(0, bestellung.getID());
+			stmt.setInt(1, bestellung.getID());
 			try(ResultSet rs = stmt.executeQuery()) {
 				while(rs.next()) {
 					Produkt_I produkt = myProduktLoader.loadProdukt(rs.getString("produkt"));

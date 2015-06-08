@@ -19,7 +19,7 @@
 
 	List<Bestellung> bestellungen = loader.loadAlleBestellungen();
 	double gesamtWert = 0;
-	Map<Integer, Double> wertMapping = new HashMap<>();
+	final Map<Integer, Double> wertMapping = new HashMap<>();
 	NavigableMap<Integer, Double> sortedWertMapping = new TreeMap<>(new Comparator<Integer>() {
 		@Override
 		public int compare(Integer o1, Integer o2) {
