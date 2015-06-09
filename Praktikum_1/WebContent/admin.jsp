@@ -1,3 +1,4 @@
+<%@page import="java.util.Collections"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.Comparator"%>
 <%@page import="java.util.TreeMap"%>
@@ -20,12 +21,6 @@
 	List<Bestellung> bestellungen = loader.loadAlleBestellungen();
 	double gesamtWert = 0;
 	final Map<Integer, Double> wertMapping = new HashMap<>();
-	NavigableMap<Integer, Double> sortedWertMapping = new TreeMap<>(new Comparator<Integer>() {
-		@Override
-		public int compare(Integer o1, Integer o2) {
-			return Double.compare(wertMapping.get(o1), wertMapping.get(o2));
-		}
-	});
 	for (Bestellung bestellung : bestellungen) {
 		for (Produkt_I produkt : bestellung.getBestellteProdukte()) {
 			if (!wertMapping.containsKey(produkt.getID()))
@@ -36,28 +31,37 @@
 			gesamtWert += aktuellerWert;
 		}
 	}
-	sortedWertMapping.putAll(wertMapping);
-
+	
+	List<Integer> produkteSortiertNachWert = new ArrayList<>();
+	produkteSortiertNachWert.addAll(wertMapping.keySet());
+	Collections.sort(produkteSortiertNachWert, new Comparator<Integer>() {
+		@Override
+		public int compare(Integer o1, Integer o2) {
+			// Der zweite Übergabeparameter wird zuerst in die Compare-Methode von Double übergeben,
+			// um eine absteigende Sortierung zu gewährleisten (gegenüberstehend einer aufsteigenden).
+			return Double.compare(wertMapping.get(o2), wertMapping.get(o1));
+		}
+	});
+	
 	List<Integer> aKlasseProdukte = new ArrayList<>();
 	List<Integer> bKlasseProdukte = new ArrayList<>();
 	List<Integer> cKlasseProdukte = new ArrayList<>();
 
 	//TODO: Koennte fuer groeßere Flexibiltaet durch Methodenaufruf uebergeben werden.
-	Double aKlasseProzentual = 0.75; 
-	Double bKlasseProzentual = 0.95;
+	double aKlasseProzentual = 0.75; 
+	double bKlasseProzentual = 0.95;
 
-	Double summe = 0.0;
-	Entry<Integer, Double> mapEntry;
-	while ((mapEntry = sortedWertMapping.pollLastEntry()) != null) {
+	double summe = 0.0;
+	for(Integer produktID : produkteSortiertNachWert) {
+		double wert = wertMapping.get(produktID);
 		if (summe < gesamtWert * aKlasseProzentual) {
-			aKlasseProdukte.add(mapEntry.getKey());
-			summe += mapEntry.getValue();
+			aKlasseProdukte.add(produktID);
 		} else if (summe < gesamtWert * bKlasseProzentual) {
-			bKlasseProdukte.add(mapEntry.getKey());
-			summe += mapEntry.getValue();
+			bKlasseProdukte.add(produktID);
 		} else {
-			cKlasseProdukte.add(mapEntry.getKey());
+			cKlasseProdukte.add(produktID);
 		}
+		summe += wert;
 	}
 %>
 
