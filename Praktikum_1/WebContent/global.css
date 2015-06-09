@@ -48,3 +48,8 @@ a:hover {
 .error_msg {
 	line-height: 0px;
 }
+
+.footnote {
+	color: #cccccc;
+	font-size: 8px;
+}
