@@ -11,7 +11,7 @@ import org.haw.bwl2.praktikum.produkt.persistence.db.DBConfigurationSingleton;
 
 public class BestellungLoader implements BestellungLoader_I {
 	private BestellungLoader_I myLoader;
-	
+
 	public BestellungLoader() throws IOException {
 		try {
 			DBConfiguration configDB = DBConfigurationSingleton.getInstance().getConfiguration();
@@ -20,17 +20,17 @@ public class BestellungLoader implements BestellungLoader_I {
 			throw new IOException("Fehler beim Instanzieren des Loaders", e);
 		}
 	}
-	
+
 	@Override
 	public List<Bestellung> loadAlleBestellungen() throws IOException {
 		return myLoader.loadAlleBestellungen();
 	}
-	
+
 	@Override
 	public Bestellung loadBestellung(int id) throws IOException {
 		return myLoader.loadBestellung(id);
 	}
-	
+
 	@Override
 	public void close() throws Exception {
 		myLoader.close();

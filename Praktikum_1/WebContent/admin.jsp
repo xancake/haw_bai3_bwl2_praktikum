@@ -1,3 +1,5 @@
+<%@page import="org.haw.bwl2.praktikum.analyse.persistence.Analyse_I"%>
+<%@page import="org.haw.bwl2.praktikum.analyse.persistence.Analyse"%>
 <%@page import="java.util.Collections"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.Comparator"%>
@@ -16,6 +18,9 @@
 <%@page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%
+	Analyse_I analyse = new Analyse();
+	Map<String, Integer> siteZuAufrufeMapping = analyse.getAufrufeFuerAlleWebsites();
+
 	BestellungLoader_I loader = new BestellungLoader();
 
 	List<Bestellung> bestellungen = loader.loadAlleBestellungen();
@@ -75,42 +80,67 @@
 </head>
 <body>
 	<div id="content">
-		<table>
-			<tr>
-				<td>A-Klasse</td>
-				<% //Da nur die ProduktID durchgegeben wird müssten produktdaten zuerst wieder aus der Datenbank geladen werden.
-				   //TODO: Problem mit Produkten als Schleussel beheben, und dann das Produkt durchgeben.
-					for (Integer produktID : aKlasseProdukte) {
+		<div id="abc-analyse">
+			<h1>ABC-Analyse</h1>
+			<table>
+				<tr>
+					<td>A-Klasse</td>
+					<% //Da nur die ProduktID durchgegeben wird müssten produktdaten zuerst wieder aus der Datenbank geladen werden.
+					   //TODO: Problem mit Produkten als Schleussel beheben, und dann das Produkt durchgeben.
+						for (Integer produktID : aKlasseProdukte) {
+					%>
+					<td><%=produktID%></td>
+					<%
+						}
+					%>
+				</tr>
+				<tr>
+					<td>B-Klasse</td>
+					<%
+						for (Integer produktID : bKlasseProdukte) {
+					%>
+					<td><%=produktID%></td>
+					<%
+						}
+					%>
+				</tr>
+				<tr>
+					<td>C-Klasse</td>
+					<%
+						for (Integer produktID : cKlasseProdukte) {
+					%>
+					<td><%=produktID%></td>
+					<%
+						}
+					%>
+				</tr>
+			</table>
+		</div>
+		<br />
+		
+		<div id="web-analyse">
+			<h1>Web-Analyse der Zugriffe</h1>
+			<table>
+				<tr>
+					<td>Seite</td>
+					<td>Zugriffe</td>
+				</tr>
+				<%
+					for(Map.Entry<String, Integer> mapEntry : siteZuAufrufeMapping.entrySet()){
 				%>
-				<td><%=produktID%></td>
+						<tr>
+							<td><%= mapEntry.getKey() %></td>
+							<td><%= mapEntry.getValue() %></td>
+						</tr>
 				<%
 					}
 				%>
-			</tr>
-			<tr>
-				<td>B-Klasse</td>
-				<%
-					for (Integer produktID : bKlasseProdukte) {
-				%>
-				<td><%=produktID%></td>
-				<%
-					}
-				%>
-			</tr>
-			<tr>
-				<td>C-Klasse</td>
-				<%
-					for (Integer produktID : cKlasseProdukte) {
-				%>
-				<td><%=produktID%></td>
-				<%
-					}
-				%>
-			</tr>
-		</table>
+			</table>
+		</div>
 	</div>
 </body>
 </html>
 <%
 	loader.close();
+	analyse.close();
 %>

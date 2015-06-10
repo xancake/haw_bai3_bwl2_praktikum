@@ -1,4 +1,12 @@
+<%@page import="org.haw.bwl2.praktikum.analyse.persistence.Analyse"%>
+<%@page import="org.haw.bwl2.praktikum.analyse.persistence.Analyse_I"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%
+	String path = request.getRequestURI();
+	Analyse_I analyse = new Analyse();
+	analyse.incrementAufrufe(path.substring(path.lastIndexOf("/")+1));
+	analyse.close();
+%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 	<head>

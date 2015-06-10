@@ -1,3 +1,5 @@
+<%@page import="org.haw.bwl2.praktikum.analyse.persistence.Analyse"%>
+<%@page import="org.haw.bwl2.praktikum.analyse.persistence.Analyse_I"%>
 <%@page import="org.apache.jasper.tagplugins.jstl.core.Param"%>
 <%@page import="org.haw.bwl2.praktikum.Parameter"%>
 <%@page import="org.haw.bwl2.praktikum.produkt.persistence.ProduktLoader"%>
@@ -7,6 +9,11 @@
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%
+	String path = request.getRequestURI();
+	Analyse_I analyse = new Analyse();
+	analyse.incrementAufrufe(path.substring(path.lastIndexOf("/")+1));
+	analyse.close();
+
 	ProduktLoader_I loader = new ProduktLoader();
 	List<Produkt_I> produkte = null;
 	

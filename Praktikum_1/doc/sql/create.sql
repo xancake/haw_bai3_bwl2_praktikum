@@ -45,3 +45,8 @@ CREATE TABLE Bestellposition(
 CREATE SEQUENCE Bestellung_seq
   START WITH 1000
   INCREMENT BY 1;
+  
+CREATE TABLE Analytics(
+  website VARCHAR(50) NOT NULL,
+  aufrufe INTEGER NOT NULL CHECK(aufrufe >= 0)
+);

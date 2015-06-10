@@ -1,3 +1,5 @@
+<%@page import="org.haw.bwl2.praktikum.analyse.persistence.Analyse_I"%>
+<%@page import="org.haw.bwl2.praktikum.analyse.persistence.Analyse"%>
 <%@page import="org.haw.bwl2.praktikum.bestellung.persistence.BestellungStorer"%>
 <%@page import="org.haw.bwl2.praktikum.bestellung.persistence.BestellungStorer_I"%>
 <%@page import="org.haw.bwl2.praktikum.bestellung.Bestellung"%>
@@ -9,8 +11,12 @@
 <%@page import="org.haw.bwl2.praktikum.warenkorb.Warenkorb"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%
+	String path = request.getRequestURI();
+	Analyse_I analyse = new Analyse();
+	analyse.incrementAufrufe(path.substring(path.lastIndexOf("/")+1));
+	analyse.close();
+
 	ProduktStorer_I produktStorer = new ProduktStorer();
-	
 	Warenkorb warenkorb = (Warenkorb)session.getAttribute(Parameter.SESSION_WARENKORB);
 	if(warenkorb == null) {
 		warenkorb = new Warenkorb();
