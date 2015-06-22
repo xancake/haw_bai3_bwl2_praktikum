@@ -89,8 +89,12 @@ public class OracleDBBestellungLoader implements BestellungLoader_I {
 	}
 	
 	@Override
-	public void close() throws Exception {
-		myConnection.close();
-		myProduktLoader.close();
+	public void close() throws IOException {
+		try {
+			myConnection.close();
+			myProduktLoader.close();
+		} catch(SQLException e) {
+			throw new IOException(e);
+		}
 	}
 }

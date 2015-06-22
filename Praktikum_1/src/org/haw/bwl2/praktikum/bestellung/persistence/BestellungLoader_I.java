@@ -20,4 +20,7 @@ public interface BestellungLoader_I extends AutoCloseable {
 	 * @throws IOException Wenn ein Fehler beim Laden aufgetreten ist
 	 */
 	Bestellung loadBestellung(int id) throws IOException;
+	
+	@Override
+	void close() throws IOException;
 }

@@ -37,7 +37,7 @@ public class ProduktLoader implements ProduktLoader_I {
 	}
 	
 	@Override
-	public void close() throws Exception {
+	public void close() throws IOException {
 		myLoader.close();
 	}
 }

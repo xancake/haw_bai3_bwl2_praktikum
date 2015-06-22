@@ -173,7 +173,11 @@ public class OracleDBProduktLoader implements ProduktLoader_I {
 	}
 	
 	@Override
-	public void close() throws Exception {
-		myConnection.close();
+	public void close() throws IOException {
+		try {
+			myConnection.close();
+		} catch(SQLException e) {
+			throw new IOException(e);
+		}
 	}
 }

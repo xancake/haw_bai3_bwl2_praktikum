@@ -32,7 +32,7 @@ public class BestellungLoader implements BestellungLoader_I {
 	}
 
 	@Override
-	public void close() throws Exception {
+	public void close() throws IOException {
 		myLoader.close();
 	}
 }

@@ -11,4 +11,7 @@ public interface ProduktLoader_I extends AutoCloseable {
 	Produkt_I loadProdukt(String id) throws IOException;
 	
 	List<Produkt_I> loadProdukte(String name, double preisVon, double preisBis) throws IOException;
+	
+	@Override
+	void close() throws IOException;
 }
