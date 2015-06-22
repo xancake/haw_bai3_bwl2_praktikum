@@ -1,3 +1,6 @@
+<%@page import="org.apache.jasper.tagplugins.jstl.core.ForEach"%>
+<%@page import="org.haw.bwl2.praktikum.analyse.assoziation.AssoziationsAnalyse.AnalyseEintrag"%>
+<%@page import="org.haw.bwl2.praktikum.analyse.assoziation.AssoziationsAnalyse"%>
 <%@page import="org.haw.bwl2.praktikum.analyse.persistence.Analyse_I"%>
 <%@page import="org.haw.bwl2.praktikum.analyse.persistence.Analyse"%>
 <%@page import="java.util.Collections"%>
@@ -68,6 +71,9 @@
 		}
 		summe += wert;
 	}
+	int minSupport = 10;
+	int minKonfidenz = 30;
+	AssoziationsAnalyse assAnal = new AssoziationsAnalyse(minSupport, minKonfidenz);
 %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -114,6 +120,50 @@
 						}
 					%>
 				</tr>
+			</table>
+		</div>
+		<br />
+		
+		<div id="assoziations-analyse">
+			<h1>Assoziation-Analyse bei <%= minSupport %> % Support und <%= minKonfidenz %> % Konfidenz</h1>
+			<table>
+				<tr>
+					<td>
+						Produktassoziation
+					</td>
+					<td>
+						erfüllende Bestellungen
+					</td>
+					<td>
+						Support
+					</td>
+					<td>
+						Konfidenz
+					</td>
+				</tr>
+				<%
+					for(Produkt_I produkt : assAnal.getAllProdukte()){
+						List<AnalyseEintrag> analListe = assAnal.getEintraegeFuer(produkt);
+						for(AnalyseEintrag analEintrag : analListe){
+				%>
+				<tr>
+					<td>
+						<%= produkt.getName() %> => <%= analEintrag.getAssoziiertesProdukt().getName() %>
+					</td>
+					<td>
+						<%= analEintrag.getBestellungen() %>
+					</td>
+					<td>
+						<%= analEintrag.getSupport() %> &#37;
+					</td>
+					<td>
+						<%= analEintrag.getKonfidenz() %> &#37;
+					</td>
+				</tr>
+				<%
+						}
+					}
+				%>
 			</table>
 		</div>
 		<br />
